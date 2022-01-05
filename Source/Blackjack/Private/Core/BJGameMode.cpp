@@ -92,6 +92,37 @@ void ABJGameMode::DealerHit()
 	}
 }
 
+
+int32 ABJGameMode::CalculateDeck(TArray<ACard*>& Deck)
+{
+	if (Deck.Num() <= 0) return 0;
+
+	int32 Total = 0;
+	int32 AceCount = 0;
+
+	for (const auto Card : Deck)
+	{
+		if (!Card) continue;
+		Total += Card->GetCardValue();
+	 	if (Card->GetRank() == ERank::ERT_Ace)
+	 	{
+	 		AceCount++;
+	 	}
+	}
+	if (AceCount <= 0) return Total;
+	
+	while (AceCount > 0)
+	{
+		if (Total > 21)
+		{
+			Total-=10;
+			if (Total <= 21) break;
+		}
+		AceCount--;
+	}
+	return Total;
+}
+
 void ABJGameMode::ClearDecks()
 {
 	Utils::ClearDeck(PlayerCards);
@@ -103,7 +134,7 @@ void ABJGameMode::PlayerTakeCard(ACard* Card)
 {
 	if (!Card) return;
 	PlayerCards.Add(Card);
-	PlayerTotal += Card->GetCardValue();
+	PlayerTotal = CalculateDeck(PlayerCards);
 	Card->MoveCard(NextPlayerCardPosition);
 	NextPlayerCardPosition.Y += CardsYOffset;
 	NextPlayerCardPosition.Z += ZOffsetBetweenCards;
@@ -114,7 +145,7 @@ void ABJGameMode::DealerTakeCard(ACard* Card)
 {
 	if (!Card) return;
 	DealerCards.Add(Card);
-	DealerTotal += Card->GetCardValue();
+	DealerTotal = CalculateDeck(DealerCards);
 	Card->MoveCard(NextDealerCardPosition);
 	NextDealerCardPosition.Y += CardsYOffset;
 	NextDealerCardPosition.Z += ZOffsetBetweenCards;

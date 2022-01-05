@@ -64,4 +64,7 @@ private:
 	void PlayerTakeCard(ACard* Card);
 	void DealerTakeCard(ACard* Card);
 	void DealerHit();
+
+	/** Calculate Total in Deck. Attention to the aces */ 
+	int32 CalculateDeck(TArray<ACard*> &Deck); 
 };
