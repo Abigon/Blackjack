@@ -57,6 +57,6 @@ int32 ACard::GetCardValue() const
 
 void ACard::MoveCard_Implementation(FVector NewLocation)
 {
-	MoveCard(NewLocation);
+
 }
 

@@ -104,7 +104,7 @@ void ABJGameMode::PlayerTakeCard(ACard* Card)
 	if (!Card) return;
 	PlayerCards.Add(Card);
 	PlayerTotal += Card->GetCardValue();
-	Card->MoveCard_Implementation(NextPlayerCardPosition);
+	Card->MoveCard(NextPlayerCardPosition);
 	NextPlayerCardPosition.Y += CardsYOffset;
 	NextPlayerCardPosition.Z += ZOffsetBetweenCards;
 }
@@ -115,7 +115,7 @@ void ABJGameMode::DealerTakeCard(ACard* Card)
 	if (!Card) return;
 	DealerCards.Add(Card);
 	DealerTotal += Card->GetCardValue();
-	Card->MoveCard_Implementation(NextDealerCardPosition);
+	Card->MoveCard(NextDealerCardPosition);
 	NextDealerCardPosition.Y += CardsYOffset;
 	NextDealerCardPosition.Z += ZOffsetBetweenCards;
 }

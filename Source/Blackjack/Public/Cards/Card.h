@@ -27,7 +27,6 @@ public:
 	/** Get value of card's rank in point */
 	int32 GetCardValue() const;
 
-protected:
 	/** Move card's actor to new location in World */ 
 	UFUNCTION(BlueprintNativeEvent, Category = "Card")
 	void MoveCard(FVector NewLocation);
